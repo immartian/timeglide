@@ -132,11 +132,13 @@ document.querySelector('#date-selector').addEventListener('change', (e) => {
 
 | Action | Traditional Calendar | TimeGlide |
 |--------|---------------------|-----------|
-| Select date 10 years ago | 120+ clicks | 1 drag |
-| Select birth date (1985) | 400+ clicks | 1 drag + 1 click |
+| Select date 10 years ago | 2–4 interactions (year scroll + month/day) | 1 drag (optional fine‑tune) |
+| Select birth date (1985) | 3–5 interactions (year, month, day) | 1 drag (optional fine‑tune) |
 | Jump to today | 2-3 clicks | 1 click/'T' key |
 | Fine-tune by day | Navigate grid | Hold button |
 | See year context | Switch views | Always visible |
+
+Note: Traditional calendar UIs vary. Many support year scrolling and month navigation, reducing clicks compared to day‑by‑day selection. This comparison focuses on typical multi‑view pickers; actual interactions depend on the specific implementation and UX.
 
 ## Customization
 
