@@ -1,0 +1,31 @@
+{
+  "name": "timeglide",
+  "version": "1.0.0",
+  "description": "Ultra-minimal, fast date selector timeline (vanilla JS)",
+  "license": "MIT",
+  "author": "TimeGlide contributors",
+  "main": "dist/timglide.umd.js",
+  "module": "dist/timglide.esm.js",
+  "types": "types/timglide.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/timglide.esm.js",
+      "default": "./dist/timglide.umd.js",
+      "types": "./types/timglide.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "types",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "date",
+    "datepicker",
+    "timeline",
+    "vanilla-js",
+    "component"
+  ]
+}
+

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TimeGlide — Minimal Date Selector</title>
+  <style>
+    html, body { height: 100%; }
+    body {
+      margin: 0; padding: 32px; background: #0a0a0a; color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1 { font-weight: 500; margin: 0 0 8px; }
+    p { color: #aaa; margin: 0 0 16px; }
+    .toolbar { display: flex; gap: 8px; margin: 0 0 16px; align-items: center; }
+    .toolbar .btn { appearance: none; border: 1px solid #2a2a2a; background: #151515; color: #ddd; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 13px; }
+    .toolbar .btn:hover { background: #1d1d1d; }
+    .toolbar .btn.active { border-color: #4a6cff; color: #fff; background: #273157; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: start; }
+    .card { background: #121212; border: 1px solid #1f1f1f; border-radius: 12px; padding: 16px; }
+    .card h2 { font-size: 16px; font-weight: 600; margin: 0 0 12px; color: #ddd; }
+    .container { margin-top: 8px; }
+    .footer { margin-top: 28px; font-size: 12px; color: #888; }
+    .brand { color: #ddd; opacity: .8; font-size: 12px; margin-top: 32px; }
+  </style>
+  <link rel="preload" as="script" href="dist/timglide.umd.js" />
+  <script src="dist/timglide.umd.js"></script>
+</head>
+<body>
+  <h1>TimeGlide — Minimal Date Selector</h1>
+  <p>Reusable, dependency‑free component. Drag, hover, hold &lt; &gt; or use arrow keys.</p>
+  <div class="toolbar" id="themeBar">
+    <span style="color:#aaa">Theme:</span>
+    <button class="btn active" data-theme="dark">Dark</button>
+    <button class="btn" data-theme="light">Light</button>
+    <button class="btn" data-theme="auto">Auto</button>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Default Range (1900–2050)</h2>
+      <div id="demo1" class="container"></div>
+      <div id="out1" class="footer"></div>
+    </div>
+    <div class="card">
+      <h2>Last 10 Years</h2>
+      <div id="demo2" class="container"></div>
+      <div id="out2" class="footer"></div>
+    </div>
+    <div class="card">
+      <h2>Custom Theme + No Today Marker</h2>
+      <div id="demo3" class="container" style="--tg-background:#101524; --tg-text:#e6f0ff; --tg-accent:#66a3ff; --tg-track:#1b2750; --tg-thumb:#e6f0ff;"></div>
+      <div id="out3" class="footer"></div>
+    </div>
+  </div>
+  <div class="brand">TimeGlide component demo</div>
+
+  <script>
+    // Demo 1: Default range
+    const tg1 = new TimeGlide({
+      container: '#demo1',
+      defaultDate: new Date(),
+      onChange: (d) => { document.getElementById('out1').textContent = 'Selected: ' + d.toDateString(); }
+    });
+
+    // Demo 2: Last 10 years
+    const now = new Date();
+    const start = new Date(now.getFullYear() - 10, 0, 1);
+    const tg2 = new TimeGlide({
+      container: '#demo2',
+      startDate: start,
+      endDate: now,
+      defaultDate: now,
+      onChange: (d) => { document.getElementById('out2').textContent = 'Selected: ' + d.toDateString(); }
+    });
+
+    // Demo 3: Custom theme, keyboard on, no today marker
+    const tg3 = new TimeGlide({
+      container: '#demo3',
+      startYear: 2000,
+      endYear: 2030,
+      defaultDate: new Date(2012, 6, 1),
+      showTodayMarker: false,
+      enableKeyboard: true,
+      shadow: true,
+      onChange: (d) => { document.getElementById('out3').textContent = 'Selected: ' + d.toDateString(); }
+    });
+
+    // Listen via DOM event (framework-agnostic)
+    document.getElementById('demo1').addEventListener('change', (e) => {
+      // e.detail.date is a Date
+      // console.log('DOM event:', e.detail.date)
+    });
+
+    // Theme toolbar
+    const bar = document.getElementById('themeBar');
+    bar.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-theme]');
+      if (!btn) return;
+      const theme = btn.getAttribute('data-theme');
+      tg1.setTheme(theme); tg2.setTheme(theme); tg3.setTheme(theme);
+      [...bar.querySelectorAll('.btn')].forEach(b => b.classList.toggle('active', b === btn));
+    });
+  </script>
+</body>
+</html>
