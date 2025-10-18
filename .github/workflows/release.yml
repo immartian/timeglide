@@ -17,6 +17,25 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm i
+          npm run prepare:playwright
+
+      - name: Start static server
+        run: |
+          nohup python3 -m http.server 8000 -b 127.0.0.1 >/dev/null 2>&1 &
+
+      - name: Generate screenshot
+        env:
+          URL: http://127.0.0.1:8000/index.html
+        run: npm run screenshot
+
       - name: Create archives
         run: |
           zip -r timeglide-${GITHUB_REF_NAME}.zip dist types README.md LICENSE || true
@@ -32,5 +51,6 @@ jobs:
             dist/timglide.umd.js
             dist/timglide.esm.js
             types/timglide.d.ts
+            artifacts/screenshot.png
             timeglide-${{ github.ref_name }}.zip
             timeglide-${{ github.ref_name }}.tar.gz

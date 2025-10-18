@@ -7,6 +7,10 @@
   "main": "dist/timglide.umd.js",
   "module": "dist/timglide.esm.js",
   "types": "types/timglide.d.ts",
+  "scripts": {
+    "screenshot": "node scripts/screenshot.js",
+    "prepare:playwright": "npx playwright install --with-deps"
+  },
   "exports": {
     ".": {
       "import": "./dist/timglide.esm.js",
@@ -26,6 +30,8 @@
     "timeline",
     "vanilla-js",
     "component"
-  ]
+  ],
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  }
 }
-
