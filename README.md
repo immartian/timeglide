@@ -17,7 +17,8 @@ Traditional date pickers require 5-10+ clicks to navigate years and months. Time
 
 ## Demo
 
-Open `index.html` to try the demo locally. The page shows multiple instances, range presets, and a theme switcher.
+- Live: https://immartian.github.io/timeglide/
+- Local: open `index.html` directly. The page shows multiple instances, range presets, and a theme switcher.
 
 ## Features
 
