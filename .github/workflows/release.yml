@@ -1,0 +1,36 @@
+name: Release on tag
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create archives
+        run: |
+          zip -r timeglide-${GITHUB_REF_NAME}.zip dist types README.md LICENSE || true
+          tar -czf timeglide-${GITHUB_REF_NAME}.tar.gz dist types README.md LICENSE || true
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          generate_release_notes: true
+          files: |
+            dist/timglide.umd.js
+            dist/timglide.esm.js
+            types/timglide.d.ts
+            timeglide-${{ github.ref_name }}.zip
+            timeglide-${{ github.ref_name }}.tar.gz
