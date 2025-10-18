@@ -1,6 +1,9 @@
 # TimeGlide
 
-![Screenshot](https://immartian.github.io/timeglide/assets/screenshot.png)
+Demo screenshots below focus on the component itself for clarity.
+
+![Light Component](https://immartian.github.io/timeglide/assets/component-light.png)
+![Dark 10‑Year Range](https://immartian.github.io/timeglide/assets/component-dark-10yr.png)
 
 **A revolutionary ultra-minimal date selector that lets you glide through 150 years in a single gesture.**
 
