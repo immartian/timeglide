@@ -6,8 +6,9 @@ const path = require('path');
 async function main() {
   const { chromium } = require('playwright');
   const url = process.env.URL || 'http://127.0.0.1:8000/index.html';
-  const outDir = path.resolve(process.cwd(), 'artifacts');
-  fs.mkdirSync(outDir, { recursive: true });
+  const outDir = process.env.OUT_DIR ? path.resolve(process.cwd(), process.env.OUT_DIR) : path.resolve(process.cwd(), 'artifacts');
+  const outFile = process.env.OUT_FILE ? path.resolve(process.cwd(), process.env.OUT_FILE) : path.join(outDir, 'screenshot.png');
+  fs.mkdirSync(path.dirname(outFile), { recursive: true });
 
   const browser = await chromium.launch({ headless: true });
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 } });
@@ -31,7 +32,6 @@ async function main() {
     await lightBtn.first().click();
   }
 
-  const outFile = path.join(outDir, 'screenshot.png');
   await page.screenshot({ path: outFile, fullPage: true });
 
   console.log('Screenshot saved to', outFile);
@@ -42,4 +42,3 @@ main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
-

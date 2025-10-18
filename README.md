@@ -1,5 +1,7 @@
 # TimeGlide
 
+![Screenshot](https://immartian.github.io/timeglide/assets/screenshot.png)
+
 **A revolutionary ultra-minimal date selector that lets you glide through 150 years in a single gesture.**
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)

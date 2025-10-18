@@ -22,6 +22,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm i
+          npm run prepare:playwright
+
+      - name: Start static server
+        run: |
+          nohup python3 -m http.server 8000 -b 127.0.0.1 >/dev/null 2>&1 &
+
+      - name: Generate demo screenshot
+        env:
+          URL: http://127.0.0.1:8000/index.html
+          OUT_FILE: assets/screenshot.png
+        run: npm run screenshot
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
